@@ -19,8 +19,11 @@ exports.UpdateLyric = async (req, res) => {
     if (youtubeLink) lyricToUpdate.youtubeLink = youtubeLink;
     if (spotifyLink) lyricToUpdate.spotifyLink = spotifyLink;
 
-    const response = await lyricToUpdate.save();
+    await lyricToUpdate.save();
 
     return res.json(lyricToUpdate);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 };
