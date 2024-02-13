@@ -14,7 +14,7 @@ exports.RegisterAdmin = async (req, res) => {
     }
 
     if (existingEmail) {
-      return res.status(400).json({ error: "this email already exists" });
+      return res.status(400).json({ error: "This email already exists" });
     }
 
     const salt = await bcrypt.genSalt(10);

@@ -12,7 +12,7 @@ const { errorMiddleware } = require("./src/midlleware/errorMiddleware");
 const { notFoundMiddleware } = require("./src/midlleware/notFoundMiddleware");
 
 const app = express();
-const port = process.env.PORT || 5002;
+const port = process.env.PORT || 4001;
 
 app.use(express.json());
 app.use(cors());
@@ -26,10 +26,10 @@ app.use("/helloWorld", (req, res) => {
   return res.send("hello World!");
 });
 
-app.use(notFoundMiddleware);
-app.use(errorMiddleware);
 app.use("/api/lyrics", lyricRoutes);
 app.use("/api", authRoutes);
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 const run = async () => {
   try {

@@ -12,6 +12,10 @@ const LyricSchema = new mongoose.Schema(
     singer: {
       type: String,
     },
+
+    songWriter: {
+      type: String,
+    },
     dialect: {
       type: String,
     },

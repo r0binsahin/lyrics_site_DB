@@ -9,10 +9,10 @@ const { DeleteLyric } = require("../controllers/DeleteLyric");
 const { GetLyrics } = require("../controllers/GetLyrics");
 const { GetLyricById } = require("../controllers/GetLyricsByID");
 
-router.post("/", authenticate, CreateLyric);
-router.put("/:lyricId", authenticate, UpdateLyric);
-router.get("/", authenticate, GetLyrics);
-router.get("/:lyricId", authenticate, GetLyricById);
-router.delete("/:lyricId", authenticate, DeleteLyric);
+router.post("/", CreateLyric);
+router.put("/:lyricId", UpdateLyric);
+router.get("/", GetLyrics);
+router.get("/:lyricId", GetLyricById);
+router.delete("/:lyricId", DeleteLyric);
 
 module.exports = router;
