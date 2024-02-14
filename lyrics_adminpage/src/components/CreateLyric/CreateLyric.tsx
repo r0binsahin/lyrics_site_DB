@@ -4,8 +4,13 @@ import axios from "axios";
 
 import "./CreateLyric.scss";
 
+type FieldErrors = Partial<Record<keyof ILyric, boolean>>;
+
 const CreateLyric = () => {
   const [inputError, setInputError] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const errors: FieldErrors = {};
+  let hasError = false;
 
   const [newLyric, setNewLyric] = useState<ILyric>({
     title: "",
@@ -28,18 +33,21 @@ const CreateLyric = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (
-      newLyric.title === "" ||
-      newLyric.text === "" ||
-      newLyric.translationEn === "" ||
-      newLyric.translationTr === "" ||
-      newLyric.singer === "" ||
-      newLyric.songWriter === "" ||
-      newLyric.dialect === "" ||
-      newLyric.youtubeLink === "" ||
-      newLyric.spotifyLink === ""
-    ) {
+    if (Object.values(newLyric).some((value) => value === "")) {
       setInputError(true);
+    }
+
+    for (const key in newLyric) {
+      if (newLyric[key as keyof ILyric].trim() === "") {
+        errors[key as keyof ILyric] = true;
+        hasError = true;
+      }
+    }
+
+    setFieldErrors(errors);
+
+    if (hasError) {
+      return;
     }
 
     try {
@@ -72,7 +80,7 @@ const CreateLyric = () => {
       <form className="lyricForm" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="title"
+          className={`title ${fieldErrors.title ? "error" : ""}`}
           placeholder="navê stranê"
           value={newLyric.title}
           name="title"
@@ -80,7 +88,7 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="text"
+          className={`text ${fieldErrors.text ? "error" : ""}`}
           placeholder="gotinên stranê"
           value={newLyric.text}
           name="text"
@@ -88,7 +96,9 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="translationEn"
+          className={`translationEn ${
+            fieldErrors.translationEn ? "error" : ""
+          }`}
           placeholder="wergera inglizî"
           value={newLyric.translationEn}
           name="translationEn"
@@ -96,7 +106,9 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="translationTr"
+          className={`translationTr ${
+            fieldErrors.translationTr ? "error" : ""
+          }`}
           placeholder="wergera tirkî"
           value={newLyric.translationTr}
           name="translationTr"
@@ -104,7 +116,7 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="singer"
+          className={`singer ${fieldErrors.singer ? "error" : ""}`}
           placeholder="stranbêj"
           value={newLyric.singer}
           name="singer"
@@ -112,7 +124,7 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="songWriter"
+          className={`songWriter ${fieldErrors.songWriter ? "error" : ""}`}
           placeholder="nivîskarê stranê"
           value={newLyric.songWriter}
           name="songWriter"
@@ -120,7 +132,7 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="dialect"
+          className={`dialect ${fieldErrors.dialect ? "error" : ""}`}
           placeholder="zarava"
           value={newLyric.dialect}
           name="dialect"
@@ -128,7 +140,7 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="youtubeLink"
+          className={`youtubeLink ${fieldErrors.youtubeLink ? "error" : ""}`}
           placeholder="lînkê youtubeê"
           value={newLyric.youtubeLink}
           name="youtubeLink"
@@ -136,7 +148,7 @@ const CreateLyric = () => {
         />
         <input
           type="text"
-          className="spotifyLink"
+          className={`spotifyLink ${fieldErrors.spotifyLink ? "error" : ""}`}
           placeholder="lînkê spotifyê"
           value={newLyric.spotifyLink}
           name="spotifyLink"
@@ -145,7 +157,7 @@ const CreateLyric = () => {
         {inputError && (
           <div>
             <p>Divê hemû rêz werin dagirtin!</p>
-            <p>Divê hemû rêz werin dagirtin!</p>
+            <p>All fields should be filled!</p>
           </div>
         )}
         <button type="submit">bişîne</button>
