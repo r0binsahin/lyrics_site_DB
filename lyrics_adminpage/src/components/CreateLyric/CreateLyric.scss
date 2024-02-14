@@ -1,0 +1,38 @@
+.container {
+  width: 500px;
+
+  h2 {
+    color: #a7a2a2;
+  }
+
+  .lyricForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #a7a2a2;
+    border-radius: 12px;
+
+    padding: 30px;
+
+    input {
+      width: 100%;
+      height: 30px;
+
+      margin-bottom: 10px;
+      border-radius: 12px;
+      border: none;
+
+      &::placeholder {
+        padding: 20px;
+
+        text-transform: uppercase;
+      }
+    }
+
+    p {
+      color: yellow;
+    }
+  }
+}

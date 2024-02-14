@@ -3,8 +3,17 @@ const Lyric = require("../models/Lyric");
 exports.UpdateLyric = async (req, res) => {
   const lyricId = req.params.lyricId;
 
-  const { title, text, singer, songWriter, dialect, youtubeLink, spotifyLink } =
-    req.body;
+  const {
+    title,
+    text,
+    translationEn,
+    translationTr,
+    singer,
+    songWriter,
+    dialect,
+    youtubeLink,
+    spotifyLink,
+  } = req.body;
 
   try {
     const lyricToUpdate = await Lyric.findById(lyricId);
@@ -13,6 +22,8 @@ exports.UpdateLyric = async (req, res) => {
 
     if (title) lyricToUpdate.title = title;
     if (text) lyricToUpdate.text = text;
+    if (translationEn) lyricToUpdate.translationEn = translationEn;
+    if (translationTr) lyricToUpdate.translationTr = translationTr;
     if (singer) lyricToUpdate.singer = singer;
     if (songWriter) lyricToUpdate.songWriter = songWriter;
     if (dialect) lyricToUpdate.dialect = dialect;

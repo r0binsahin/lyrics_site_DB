@@ -9,6 +9,12 @@ const LyricSchema = new mongoose.Schema(
       type: String,
     },
 
+    translationEn: {
+      type: String,
+    },
+    translationTr: {
+      type: String,
+    },
     singer: {
       type: String,
     },
