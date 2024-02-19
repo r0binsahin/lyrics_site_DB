@@ -35,6 +35,7 @@ exports.CreateLyric = async (req, res) => {
     });
 
     return res.json({
+      newLyric,
       message: `New lyric added: ${newLyric.title} by ${newLyric.singer}`,
     });
   } catch (error) {
