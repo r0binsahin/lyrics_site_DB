@@ -1,18 +1,38 @@
+import { useEffect, useState } from 'react';
+import { ILyric } from '../models/ILyric';
 import axios from 'axios';
 
 const DisplayLyrics = () => {
-  const getLyricsToDisplay = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/api/lyrics');
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error fetching lyrics:', error);
-    }
+  const [lyrics, setLyrics] = useState<ILyric[]>([]);
+
+  const fetchLyrics = async () => {
+    const res = await axios.get('http://localhost:3000/api/lyrics');
+    return res.data;
   };
 
-  getLyricsToDisplay();
+  useEffect(() => {
+    const fetchAndSetLyrics = async () => {
+      const lyrArray: ILyric[] = await fetchLyrics();
+      setLyrics(lyrArray);
+    };
 
-  return <div>DisplayLyrics</div>;
+    fetchAndSetLyrics();
+  }, []);
+
+  console.log(lyrics);
+  return (
+    <>
+      <h1>My lyrics</h1>
+
+      {lyrics.map((lyric) => {
+        return (
+          <ul>
+            <li>{lyric.title}</li>
+          </ul>
+        );
+      })}
+    </>
+  );
 };
 
 export default DisplayLyrics;
