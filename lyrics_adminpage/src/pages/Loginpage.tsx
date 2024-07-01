@@ -1,4 +1,4 @@
-import CreateLyric from "../components/CreateLyric/CreateLyric";
+import CreateLyric from '../components/CreateLyric/CreateLyric';
 
 const Loginpage = () => {
   return <CreateLyric />;

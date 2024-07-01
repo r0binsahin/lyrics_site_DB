@@ -1,5 +1,7 @@
+import DisplayLyrics from '../components/DisplayLyrics';
+
 const Contentpage = () => {
-  return <div>Contentpage</div>;
+  return <DisplayLyrics />;
 };
 
 export default Contentpage;

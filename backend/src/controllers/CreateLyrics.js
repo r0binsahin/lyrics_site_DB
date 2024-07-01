@@ -1,4 +1,4 @@
-const Lyric = require("../models/Lyric");
+const Lyric = require('../models/Lyric');
 
 exports.CreateLyric = async (req, res) => {
   const {
@@ -19,7 +19,7 @@ exports.CreateLyric = async (req, res) => {
     if (existingLyric) {
       return res
         .status(400)
-        .json({ error: "Lyric with this title already exists" });
+        .json({ error: 'Lyric with this title already exists' });
     }
 
     const newLyric = await Lyric.create({
@@ -34,12 +34,16 @@ exports.CreateLyric = async (req, res) => {
       spotifyLink: spotifyLink,
     });
 
+    await newLyric.save();
+
+    console.log('Lyric saved:', newLyric);
+
     return res.json({
       newLyric,
       message: `New lyric added: ${newLyric.title} by ${newLyric.singer}`,
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
