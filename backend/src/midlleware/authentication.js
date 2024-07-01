@@ -1,18 +1,18 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const authentication = (req, res, next) => {
   let token;
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
+    req.headers.authorization.startsWith('Bearer')
   ) {
-    token = req.headers.authorization.split(" ")[1];
+    token = req.headers.authorization.split(' ')[1];
   }
 
   if (!token) {
     return res.status(401).json({
-      message: "Authentication failed! Token missing",
+      message: 'Authentication failed! Token missing',
     });
   }
 
@@ -24,7 +24,7 @@ const authentication = (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: "Authentication failed! Invalid token",
+      message: 'Authentication failed! Invalid token',
     });
   }
 };

@@ -9,9 +9,9 @@ const { DeleteLyric } = require('../controllers/DeleteLyric');
 const { GetLyrics } = require('../controllers/GetLyrics');
 const { GetLyricById } = require('../controllers/GetLyricsByID');
 
-router.post('/lyrics', CreateLyric);
+router.post('/lyrics', authenticate, CreateLyric);
 router.put('/:lyricId', UpdateLyric);
-router.get('/lyrics', GetLyrics);
+router.get('/lyrics', authenticate, GetLyrics);
 router.get('/:lyricId', GetLyricById);
 router.delete('/:lyricId', DeleteLyric);
 
